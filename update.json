@@ -1,7 +1,7 @@
 {
-  "versionCode": 74,
-  "versionName": "0.74",
-  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.74/v0.74.apk",
-  "sha256": "9cd58e37901e440aafe68e5d8dc0c86060c9ea93da6101bc141590c463bcdf8c",
-  "notes": "Überarbeitet / Verbesserungen des Players"
+  "versionCode": 75,
+  "versionName": "0.75",
+  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.75/v0.75.apk",
+  "sha256": "5b308c4d53c5203ecda025243299fb70dcf2350f4c9fbeda74b76f12532d2983",
+  "notes": "Überarbeitung des Players / Player Start bei Einschaltung der Android Box / Fernsehens"
 }
