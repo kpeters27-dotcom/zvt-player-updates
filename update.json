@@ -1,7 +1,7 @@
 {
-  "versionCode": 72,
-  "versionName": "0.72",
-  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.72/v0.72.apk",
-  "sha256": "6a7aaf8fb916a6c32edaf8ae98fb72514d9140f598c7d51b6c80aa8d6dc18db6",
-  "notes": "Überarbeitung des Players"
+  "versionCode": 73,
+  "versionName": "0.73",
+  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.73/v0.73.apk",
+  "sha256": "6a5fe602c3b8c3432dcae1f4879293de99448c63ebd07c50b000b4d6e3d9a531",
+  "notes": "Wiedergabe mit Bild und Ton korrigiert."
 }
