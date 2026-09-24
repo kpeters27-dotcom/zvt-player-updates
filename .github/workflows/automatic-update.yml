@@ -1,0 +1,82 @@
+name: Automatische Update-Datei
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: APK laden und update.json erstellen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+
+          if [ -z "$TAG" ]; then
+            TAG=$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq '.tagName')
+          fi
+
+          mkdir -p release-apk
+          gh release download "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "*.apk" \
+            --dir release-apk
+
+          APK=$(find release-apk -type f -name "*.apk" | head -n 1)
+
+          if [ -z "$APK" ]; then
+            echo "Keine APK im Release gefunden."
+            exit 1
+          fi
+
+          ASSET=$(basename "$APK")
+          SHA256=$(sha256sum "$APK" | cut -d " " -f 1)
+          VERSION_CODE=$(echo "$TAG" | sed -nE 's/^v?0\.([0-9]+).*/\1/p')
+          VERSION_NAME="${TAG#v}"
+          APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/${ASSET}"
+
+          if [ -z "$VERSION_CODE" ]; then
+            echo "Versionsnummer konnte nicht aus dem Tag gelesen werden."
+            echo "Beispiel für einen gültigen Tag: v0.79_BETA"
+            exit 1
+          fi
+
+          jq -n \
+            --argjson versionCode "$VERSION_CODE" \
+            --arg versionName "$VERSION_NAME" \
+            --arg apkUrl "$APK_URL" \
+            --arg sha256 "$SHA256" \
+            --arg notes "Neue Version von ZVT PLAYER BETA verfügbar." \
+            '{
+              versionCode: $versionCode,
+              versionName: $versionName,
+              apkUrl: $apkUrl,
+              sha256: $sha256,
+              notes: $notes
+            }' > update.json
+
+      - name: update.json speichern
+        run: |
+          git config user.name "ZVT Update Bot"
+          git config user.email "actions@github.com"
+          git add update.json
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderung notwendig."
+          else
+            git commit -m "Update-Datei automatisch aktualisiert"
+            git push origin main
+          fi
