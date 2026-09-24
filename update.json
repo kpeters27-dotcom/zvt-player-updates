@@ -1,7 +1,7 @@
 {
   "versionCode": 78,
-  "versionName": "0.78",
-  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.78/v0.78_BETA_.apk",
+  "versionName": "0.78_BETA",
+  "apkUrl": "https://github.com/kpeters27-dotcom/zvt-player-updates/releases/download/v0.78_BETA/v0.78_BETA_.apk",
   "sha256": "f1e02ceb2bc78233feb90c0caee51e1b8c6ec16236cad8e4ea247ce83db8d49a",
-  "notes": "Aktualisierung und Erinnerungsfunktion eingebaut. Umstellung auf Beta"
+  "notes": "Neue Version von ZVT PLAYER BETA verfügbar."
 }
